@@ -1,0 +1,89 @@
+// ============================================================
+// Global transition utilities + keyframe animations
+// The "dynamic feel": every interactive element transitions
+// smoothly with a unified cubic-bezier easing curve.
+// ============================================================
+
+// ── Universal transition on theme-colour properties only ──
+// Keeps global theme switching smooth without paying the cost of
+// transitioning transform/opacity/box-shadow on every DOM node.
+// All interactive properties (hover lift, icon rotation, etc.) are
+// covered by named selectors in the component partials.
+*,
+*::before,
+*::after {
+  transition-property: color, background-color, border-color;
+  transition-duration: var(--t-slow);
+  transition-timing-function: var(--ease);
+}
+
+// ── Keyframe library ──
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// ── Directional entrance animations for staged page assembly ──
+@keyframes slideDownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRightIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ── Page-load entrance — subtle fade for the content container ──
+// No transform so it won't conflict with child element animations.
+// Exclude fixed/overlay UI chrome (TOC FAB, drawer, overlay) that
+// relies on opacity:0 to stay hidden — fadeIn's `both` fill mode
+// would otherwise pin them at opacity:1 on mobile.
+.site-content > *:not(.toc-fab):not(.toc-drawer):not(.toc-drawer__overlay) {
+  animation: fadeIn 0.12s var(--ease) both;
+}
+
+// Respect reduced-motion preferences
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

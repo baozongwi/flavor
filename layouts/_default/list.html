@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="container">
+  <ul class="post-list">
+    {{ $paginator := .Paginate .Pages }}
+    {{ range $paginator.Pages }}
+    {{ partialCached "post-list-item.html" (dict "page" . "showDesc" false) .RelPermalink "plain" }}
+    {{ end }}
+  </ul>
+  {{ partial "pagination.html" . }}
+</div>
+{{ end }}

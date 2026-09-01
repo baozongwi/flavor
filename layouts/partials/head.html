@@ -1,0 +1,30 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+{{ with .Site.Params.favicon }}<link rel="icon" href="{{ . | relURL }}">{{ end }}
+<script>
+(function(){
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  var ov = sessionStorage.getItem('flavor-theme-override');
+  if (ov === 'light' || ov === 'dark') {
+    document.documentElement.setAttribute('data-theme', ov);
+    return;
+  }
+  document.documentElement.setAttribute('data-theme', mq.matches ? 'dark' : 'light');
+})();
+</script>
+{{- with .Site.Params.font -}}
+  {{- with .preload -}}
+<link rel="preload" as="font" type="font/woff2" href="{{ . | relURL }}" crossorigin>
+  {{- end -}}
+  {{- with .css -}}
+<link rel="preload" as="style" href="{{ . | relURL }}" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+<link rel="stylesheet" href="{{ . | relURL }}">
+</noscript>
+  {{- end -}}
+{{- end -}}
+{{- $style := resources.Get "scss/main.scss" | toCSS | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $style.RelPermalink }}">
+{{- partial "meta.html" . -}}
+{{- partial "schema.html" . -}}

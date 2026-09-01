@@ -1,0 +1,83 @@
+// Base styles
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  color-scheme: light dark;
+}
+
+body {
+  font-family: "TsangerJinKai02", "仓耳今楷02", "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  font-weight: 400;
+  color: var(--text);
+  background-color: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color var(--t-base);
+
+  &:hover {
+    color: var(--link-hover);
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+ul, ol {
+  padding-left: 1.5em;
+}
+
+// Accent-tinted selection — matches exp10it.io
+::selection {
+  background: var(--link);
+  color: #fff;
+}
+
+[data-theme="dark"] ::selection {
+  background: rgba(143, 206, 242, 0.25);
+  color: var(--heading);
+}
+
+.container {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 0 24px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.site-content {
+  flex: 1;
+  padding-top: 76px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--divider);
+  margin: 2em 0;
+}

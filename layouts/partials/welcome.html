@@ -1,0 +1,12 @@
+{{- $text := "" -}}
+{{- with .Site.Params.welcome -}}
+  {{- if and (ne .enabled false) .text -}}
+    {{- $text = .text -}}
+  {{- end -}}
+{{- end -}}
+{{- if $text -}}
+<div class="welcome" id="welcome-screen">
+  <div class="welcome__glow"></div>
+  <div class="welcome__text">{{ $text }}</div>
+</div>
+{{- end -}}

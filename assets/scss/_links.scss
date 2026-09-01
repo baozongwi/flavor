@@ -1,0 +1,128 @@
+// Links page — card hover with lift + shadow
+.links-page {
+  padding-top: 48px;
+  padding-bottom: 60px;
+
+  &__title {
+    font-size: 2.1875rem;
+    font-weight: 400;
+    color: var(--heading);
+    margin-bottom: 32px;
+  }
+}
+
+.links-group {
+  margin-bottom: 40px;
+
+  &__title {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    color: var(--heading);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--divider);
+  }
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.link-card {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: inherit;
+  overflow: hidden;
+  transition: border-color var(--t-base), box-shadow var(--t-base);
+
+  &:hover {
+    border-color: var(--link);
+    box-shadow: var(--card-hover-shadow);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  // Fixed square avatar — object-fit:cover crops any aspect ratio.
+  // A height is required: without it the img's intrinsic height (from
+  // width / natural ratio) participates in flex sizing and makes cards
+  // with non-1:1 avatars taller/shorter than the rest.
+  &__avatar {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+
+  &__fallback {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    background: var(--tag-bg);
+    color: var(--link);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--heading);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__desc {
+    font-size: 0.8125rem;
+    color: var(--meta);
+    line-height: 1.5;
+    margin-top: 2px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 1024px) {
+  .links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .link-card {
+    &__avatar,
+    &__fallback {
+      width: 56px;
+      height: 56px;
+    }
+
+    &__fallback {
+      font-size: 1.25rem;
+    }
+  }
+}

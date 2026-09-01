@@ -1,0 +1,105 @@
+{{- $url := urls.Parse .Destination -}}
+{{- $alt := .PlainText | safeHTML -}}
+{{- $ImageClass := "article-content-image" -}}
+{{- $src := .Destination | relURL | safeURL -}}
+{{- $full := "" -}}
+{{- $Width := 0 -}}
+{{- $Height := 0 -}}
+{{- $eager := eq .Ordinal 0 -}}
+{{- $displayW := 0 -}}
+{{- with $url.Query.Get "w" -}}{{- $displayW = int . -}}{{- end -}}
+{{- with $url.Query.Get "width" -}}{{- $displayW = int . -}}{{- end -}}
+
+{{- $isRemote := or (eq $url.Scheme "http") (eq $url.Scheme "https") (eq $url.Scheme "data") -}}
+{{- if or $isRemote (and $url.Scheme (ne $url.Scheme "")) -}}
+  {{- $src = .Destination | safeURL -}}
+{{- else -}}
+  {{- $dest := strings.TrimPrefix "./" $url.Path -}}
+  {{- $dest = path.Clean $dest -}}
+  {{- $image := false -}}
+  {{- with .Page.Resources.GetMatch $dest -}}
+    {{- $image = . -}}
+  {{- else -}}
+    {{- with .Page.Resources.GetMatch (path.Base $dest) -}}
+      {{- $image = . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if and (not $image) .Page.File -}}
+    {{- $rel := $dest -}}
+    {{- if hasPrefix $rel "/" -}}
+      {{- $rel = strings.TrimPrefix $rel "/" -}}
+    {{- else -}}
+      {{- $rel = path.Clean (path.Join .Page.File.Dir $dest) -}}
+    {{- end -}}
+    {{- if not (hasPrefix $rel "../") -}}
+      {{- with resources.Get (printf "c/%s" $rel) -}}
+        {{- if eq .MediaType.MainType "image" -}}
+          {{- $image = . -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- if $image -}}
+    {{- $sub := $image.MediaType.SubType -}}
+    {{- if or (eq $sub "gif") (eq $sub "svg+xml") -}}
+      {{- $src = $image.RelPermalink -}}
+      {{- $full = $image.RelPermalink -}}
+      {{- $Width = $image.Width -}}
+      {{- $Height = $image.Height -}}
+    {{- else -}}
+      {{- $q := 80 -}}
+      {{- $rendered := $image -}}
+      {{- $ok := true -}}
+      {{- if or (gt $image.Width 1600) (gt $image.Height 1600) -}}
+        {{- $tr := try ($image.Fit (printf "1600x1600 webp q%d" $q)) -}}
+        {{- if $tr.Err }}{{ $ok = false }}{{ else }}{{ $rendered = $tr.Value }}{{ end -}}
+      {{- else if ne $sub "webp" -}}
+        {{- $tr := try ($image.Process (printf "webp q%d" $q)) -}}
+        {{- if $tr.Err }}{{ $ok = false }}{{ else }}{{ $rendered = $tr.Value }}{{ end -}}
+      {{- end -}}
+      {{- if $ok -}}
+        {{- $src = $rendered.RelPermalink -}}
+        {{- $full = $rendered.RelPermalink -}}
+        {{- $Width = $rendered.Width -}}
+        {{- $Height = $rendered.Height -}}
+      {{- else -}}
+        {{- $src = $image.RelPermalink -}}
+        {{- $full = $image.RelPermalink -}}
+        {{- $Width = $image.Width -}}
+        {{- $Height = $image.Height -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if and $displayW $Width (gt $Width $displayW) -}}
+      {{- $Height = int (math.Round (div (mul (float $Height) (float $displayW)) (float $Width))) -}}
+      {{- $Width = $displayW -}}
+      {{- $ImageClass = printf "%s article-content-image--narrow" $ImageClass -}}
+    {{- end -}}
+    {{- if gt $Height $Width -}}
+      {{- $ImageClass = printf "%s article-content-image--portrait" $ImageClass -}}
+    {{- else if gt $Width $Height -}}
+      {{- $ImageClass = printf "%s article-content-image--landscape" $ImageClass -}}
+    {{- else if and $Width $Height -}}
+      {{- $ImageClass = printf "%s article-content-image--square" $ImageClass -}}
+    {{- else -}}
+      {{- $ImageClass = printf "%s article-content-image--unknown" $ImageClass -}}
+    {{- end -}}
+  {{- else if and (eq $url.Scheme "") (not (hasPrefix $url.Path "/")) .Page.File -}}
+    {{- $contentPath := path.Clean (path.Join .Page.File.Dir $dest) -}}
+    {{- if not (hasPrefix $contentPath "../") -}}
+      {{- $src = urls.JoinPath "/" $contentPath -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if and $displayW (not $Width) -}}
+  {{- $Width = $displayW -}}
+  {{- $ImageClass = printf "%s article-content-image--narrow" $ImageClass -}}
+{{- end -}}
+
+<img class="{{ $ImageClass }}" src="{{ $src | safeURL }}"
+	{{ with $Width }}width="{{ . }}"{{ end }}
+	{{ with $Height }}height="{{ . }}"{{ end }}
+	{{ with $full }}data-full="{{ . }}"{{ end }}
+	{{ if $eager }}fetchpriority="high" decoding="async"{{ else }}loading="lazy" decoding="async"{{ end }}
+	{{ with $alt }}alt="{{ . }}"{{ end }}
+>
