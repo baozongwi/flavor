@@ -4,8 +4,8 @@ licenselink = "https://github.com/baozongwi/flavor/blob/main/LICENSE"
 description = "Paper-light / blue-dark Hugo theme for technical blogs, with CJK serif and encrypted posts."
 homepage = "https://github.com/baozongwi/flavor"
 demosite = "https://baozongwi.xyz"
-tags = ["blog", "minimal", "dark mode", "responsive", "chinese", "encryption"]
-features = ["dark mode", "search", "toc", "encrypted posts", "friend links", "travel"]
+tags = ["blog", "minimal", "dark mode", "light", "personal", "sass"]
+features = ["dark mode", "search", "toc", "encrypted posts", "friend links", "travel", "responsive"]
 min_version = "0.146.0"
 
 [author]

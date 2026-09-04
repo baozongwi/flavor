@@ -1,6 +1,6 @@
 baseURL = "https://example.com/"
-locale = "zh-cn"
-title = "My Blog"
+locale = "en"
+title = "Flavor"
 theme = "flavor"
 copyright = "your-name"
 hasCJKLanguage = true
@@ -22,11 +22,12 @@ hasCJKLanguage = true
 [params]
   description = "A technical blog."
   mainSections = ["post"]
-  avatar = "img/avatar.jpg"
-  favicon = "favicon.ico"
-  defaultSocialImage = "img/avatar.jpg"
-  ogLocale = "zh_CN"
+  avatar = "img/avatar.png"
+  favicon = "favicon.png"
+  defaultSocialImage = "img/avatar.png"
+  ogLocale = "en_US"
   license = "Licensed under CC BY-NC-SA 4.0"
+  status = "Paper-light notes, blue-dark nights."
 
   [params.author]
     name = "your-name"
@@ -34,8 +35,8 @@ hasCJKLanguage = true
     url = "/about/"
 
   [params.welcome]
-    enabled = true
-    text = "你好"
+    enabled = false
+    text = ""
 
   [params.footer]
     since = 2024
@@ -44,11 +45,6 @@ hasCJKLanguage = true
     slogans = [
       "stay hungry, stay foolish",
     ]
-
-  # 可选。主题不附带字体；把切好的 unicode-range css/woff2 放到 static/fonts/ 再填路径。
-  # [params.font]
-  #   css = "fonts/your-font/result.css"
-  #   preload = "fonts/your-font/xxxx.woff2"
 
 [menu]
   [[menu.main]]
@@ -84,7 +80,7 @@ hasCJKLanguage = true
 
   [[menu.social]]
     name = "GitHub"
-    url = "https://github.com/you"
+    url = "https://github.com/baozongwi/flavor"
     [menu.social.params]
       icon = "github"
   [[menu.social]]
