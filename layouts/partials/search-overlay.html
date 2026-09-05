@@ -2,10 +2,14 @@
   <div class="search-overlay__dialog">
     <div class="search-overlay__input-wrap">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="search-input" placeholder="搜索文章标题、标签、分类或正文..." autocomplete="off">
+      <input type="text" id="search-input" placeholder="{{ T `search-placeholder` }}..." autocomplete="off">
     </div>
     <div class="search-overlay__results" id="search-results">
-      <div class="search-overlay__empty">输入关键词开始搜索</div>
+      <div class="search-overlay__empty">{{ T "search-empty" }}</div>
     </div>
   </div>
 </div>
+{{/* Message templates used by assets/js/search.js */}}
+<template id="search-tpl-empty"><div class="search-overlay__empty">{{ T "search-empty" }}</div></template>
+<template id="search-tpl-no-results"><div class="search-overlay__empty">{{ T "search-no-results" }}</div></template>
+<template id="search-tpl-unavailable"><div class="search-overlay__empty">{{ T "search-unavailable" }}</div></template>
