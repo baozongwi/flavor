@@ -8,10 +8,12 @@
   {{- with .Params.slug -}}{{- $encData = index hugo.Data.encrypted . -}}{{- end -}}
 {{- end -}}
 {{- $hasTOC = or $hasTOC $encrypted -}}{{/* 加密文章也渲染 TOC 容器，解密后由 JS 填充 */}}
+{{- if $encrypted -}}{{- partial "publish-encrypted-images.html" . -}}{{- end -}}
 <div class="post-layout">
   <article class="post-layout__content post-single">
     <header class="post-single__header">
       <div class="post-single__meta">
+        {{ if .Params.sticky }}{{ partial "pin-badge.html" . }}<span class="sep">·</span>{{ end }}
         <time datetime="{{ .Date.Format "2006-01-02" }}" data-pagefind-meta="date[datetime]">{{ .Date.Format "Jan 02, 2006" }}</time>
         <span class="sep">·</span>
         <span>{{ .ReadingTime }} min read</span>
@@ -26,6 +28,7 @@
       </div>
       <h1 class="post-single__title" data-pagefind-meta="title">{{ .Title }}</h1>
     </header>
+    {{ partial "stale-notice.html" . }}
     {{ if $encData }}
     <div class="encrypt-container">
       <div class="encrypt-locked" data-salt="{{ $encData.salt }}" data-iv="{{ $encData.iv }}" data-ct="{{ $encData.ct }}">

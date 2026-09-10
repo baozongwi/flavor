@@ -8,6 +8,6 @@ categories: ["Journal"]
 tags: ["hugo", "theme"]
 ---
 
-Flavor is a small Hugo theme for long-form technical writing. This example site is enough to click through the layouts: home, post, archives, links, and travel.
+Flavor is a small Hugo theme for long-form technical writing. This example site is enough to click through the layouts: home, post, archives, and links.
 
 The color scheme follows `prefers-color-scheme`. Use the sun/moon button in the navbar to pin light or dark for the current tab.

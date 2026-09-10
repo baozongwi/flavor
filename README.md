@@ -1,6 +1,6 @@
 # Flavor
 
-Paper-light / blue-dark Hugo theme for technical blogs. CJK serif typography, encrypted posts, friend links, and a travel log.
+Paper-light / blue-dark Hugo theme for technical blogs. CJK serif typography, encrypted posts, and friend links.
 
 **Demo:** [baozongwi.xyz](https://baozongwi.xyz)
 
@@ -15,7 +15,7 @@ Requires **Hugo Extended 0.146+** (developed on 0.163.1).
 - Overlay search via [Pagefind](https://pagefind.app/)
 - Table of contents, code copy, image lightbox
 - AES-256-GCM encrypted posts (browser Web Crypto)
-- Friend-link cards and a year-grouped travel list
+- Friend-link cards
 - Optional welcome splash and homepage typewriter
 
 ## Install
@@ -50,7 +50,6 @@ Create these under `content/page/` with the matching `layout`:
 | About | `layout: about` |
 | Archives | `layout: archives` |
 | Friend links | `layout: links` |
-| Travel list | `layout: travel` |
 
 Search is a navbar overlay — there is no `/search` page. After `hugo`, run [Pagefind](https://pagefind.app/) on `public/`:
 
@@ -94,21 +93,7 @@ bash themes/flavor/scripts/encrypt.sh
 
 The script prompts for a password. For several posts with the same password: `ENCRYPT_PASSWORD=xxx bash themes/flavor/scripts/encrypt.sh`.
 
-Deploy with a normal `hugo` build — do not set `HUGO_ENCRYPT_PLAIN`. Place images next to the private note; the script copies them to `static/p/<slug>/`.
-
-## Travel
-
-Regular pages with `travel: true`. The travel list groups them by year.
-
-```bash
-hugo new --kind travel "page/trips/2026/hangzhou/hangzhou.md"
-```
-
-Set `url` to an English path, e.g. `/travel/hangzhou-2026-09/`. Put images in a sibling `assets/` folder:
-
-```markdown
-![](assets/001.png)
-```
+Deploy with a normal `hugo` build — do not set `HUGO_ENCRYPT_PLAIN`. Place images next to the private note; the script copies them to `content/post/<slug>/` (they stay there after stubify) and Hugo converts them to webp like any other post.
 
 ## Welcome / status / typewriter
 
@@ -142,9 +127,26 @@ Otherwise the stack is `Songti SC / STSong / Noto Serif SC`.
 
 ## Images
 
-Body images convert to webp, longest edge 1600, q80. GIF and SVG are left alone.
+Raster images on the page go through `process-image.html` at build time and are served as webp. Keep png/jpg originals in the repo.
 
-For large posts, mount originals as Hugo assets (the demo site does this). See `hugo.yaml` `module.mounts` on the demo. Without that mount, images still work as page resources.
+| Use | Processing |
+| --- | --- |
+| Markdown body images | longest edge 1600, `webp q80` |
+| Friend-link cards | `Fill 144x144 webp q88` |
+| Homepage avatar | `Resize 264x webp q90` |
+| `og:image` | same as body images |
+| GIF / SVG | left as-is |
+| favicon | original format, not webp |
+
+For large posts, mount originals as Hugo assets and exclude png/jpg from the `static`/`content` mounts so unprocessed files are not copied into `public/`. Without that mount, images still work as page resources.
+
+## Sticky posts
+
+Set `sticky: true` in front matter. They sort first on the home and list first page, with a pin mark. Archives keep the original year and only add the mark.
+
+## Stale notice
+
+When a `post` is more than 100 days past `lastmod` (or `date` if `lastmod` is missing), a quote appears at the top of the article. Update `lastmod` or set `stale: false` to hide it. Threshold: `params.staleDays`.
 
 ## License
 
@@ -154,7 +156,7 @@ MIT.
 
 # 中文
 
-纸色浅色 / 蓝黑深色的技术博客主题。CJK 衬线、加密文章、友链、游记。
+纸色浅色 / 蓝黑深色的技术博客主题。CJK 衬线、加密文章、友链。
 
 演示：[baozongwi.xyz](https://baozongwi.xyz)
 
@@ -176,7 +178,6 @@ cp themes/flavor/hugo.toml.example hugo.toml
 | 关于 | `layout: about` |
 | 归档 | `layout: archives` |
 | 友链 | `layout: links` |
-| 游记列表 | `layout: travel` |
 
 搜索是顶栏的 overlay，没有单独的 `/search` 页。部署时在 `public/` 上跑一次 [Pagefind](https://pagefind.app/)：
 
@@ -220,21 +221,7 @@ bash themes/flavor/scripts/encrypt.sh
 
 会提示输入密码。多篇同一密码可以 `ENCRYPT_PASSWORD=xxx bash themes/flavor/scripts/encrypt.sh`。
 
-部署侧照常 `hugo`，不要设 `HUGO_ENCRYPT_PLAIN`。文章图片放到 private 同级目录，脚本会拷到 `static/p/<slug>/`。
-
-## 游记
-
-普通文章，多一个 `travel: true`，列表页按年份收。
-
-```bash
-hugo new --kind travel "page/游记/2026/杭州记/杭州记.md"
-```
-
-把 `url` 改成英文，例如 `/travel/hangzhou-2026-09/`。图片放同级 `assets/`：
-
-```markdown
-![](assets/001.png)
-```
+部署侧照常 `hugo`，不要设 `HUGO_ENCRYPT_PLAIN`。文章图片放到 private 同级目录，脚本会拷到 `content/post/<slug>/`（stubify 后图仍留着），和普通文一样由 Hugo 转 webp。
 
 ## 欢迎页 / 说说 / 打字机
 
@@ -252,6 +239,14 @@ hugo new --kind travel "page/游记/2026/杭州记/杭州记.md"
 
 `welcome.text` 不填就不显示欢迎页。首页 hero 的那句说说是 `params.status`。
 
+## 置顶
+
+文章 front matter 加 `sticky: true`。首页和列表第一页会排在最前，带「置顶」标记；归档留在原来的年份里，只加标记。
+
+## 过时提示
+
+`post` 距 `lastmod`（没有就用 `date`）超过 100 天时，正文顶部会出现引用提示。把 `lastmod` 改到 100 天以内，或写 `stale: false`。阈值：`params.staleDays`。
+
 ## 字体
 
 主题**不附带**任何字体文件。演示站用的是仓耳今楷 02（妙言），版权归原作者，不能跟着主题分发。
@@ -268,6 +263,15 @@ hugo new --kind travel "page/游记/2026/杭州记/杭州记.md"
 
 ## 图片
 
-正文图默认转 webp、最长边 1600、q80。GIF / SVG 不转。
+页面上的光栅图统一走 `process-image.html`，构建时转 webp。仓库里仍放 png/jpg 原图。
 
-文章和图片很多时，建议把原图挂到 `assets` 再处理（演示站就是这么做的），配置见仓库里博客站点的 `hugo.yaml` `module.mounts`。不配也能用，图会按 Hugo page resource 处理。
+| 场景 | 处理 |
+|---|---|
+| 正文 Markdown 图 | 最长边 1600，`webp q80` |
+| 友链卡片 | `Fill 144x144 webp q88` |
+| 首页头像 | `Resize 264x webp q90` |
+| `og:image` | 和正文同一套 |
+| GIF / SVG | 不转 |
+| favicon | 原格式，不转 webp |
+
+文章和图片很多时，建议把原图挂到 `assets` 再处理，并从 `static`/`content` 排除 png/jpg，避免原图再拷进 `public/`。不配也能用，图会按 Hugo page resource 处理。
