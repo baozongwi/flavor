@@ -2,7 +2,7 @@
 
 Paper-light / blue-dark Hugo theme for technical blogs. CJK serif typography, encrypted posts, and friend links.
 
-**Demo:** [baozongwi.xyz](https://baozongwi.xyz)
+**Demo:** [bao2ongw1.github.io](https://bao2ongw1.github.io)
 
 ![Flavor screenshot](https://raw.githubusercontent.com/baozongwi/flavor/main/images/screenshot.png)
 
@@ -40,6 +40,8 @@ Preview the bundled example site from the theme root:
 ```bash
 hugo server --source exampleSite --themesDir ..
 ```
+
+The live demo is built from `exampleSite` and published to [bao2ongw1.github.io](https://bao2ongw1.github.io). From this repo: `bash scripts/deploy-demo.sh`.
 
 ### Pages
 
@@ -158,7 +160,7 @@ MIT.
 
 纸色浅色 / 蓝黑深色的技术博客主题。CJK 衬线、加密文章、友链。
 
-演示：[baozongwi.xyz](https://baozongwi.xyz)
+演示：[bao2ongw1.github.io](https://bao2ongw1.github.io)
 
 需要 **Hugo Extended 0.146+**（开发时用的 0.163.1）。
 

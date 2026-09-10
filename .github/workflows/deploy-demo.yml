@@ -1,0 +1,38 @@
+name: Deploy demo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.repository == 'baozongwi/flavor'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: flavor
+
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.163.1"
+          extended: true
+
+      - name: Build exampleSite
+        working-directory: flavor
+        run: hugo --source exampleSite --themesDir "${{ github.workspace }}" --minify --destination "${{ github.workspace }}/public"
+
+      - name: Pagefind
+        run: npx -y pagefind@1.5.0 --site public
+
+      - name: Deploy to bao2ongw1.github.io
+        if: ${{ secrets.DEMO_DEPLOY_TOKEN != '' }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.DEMO_DEPLOY_TOKEN }}
+          external_repository: bao2ongw1/bao2ongw1.github.io
+          publish_branch: main
+          publish_dir: public
+          force_orphan: true
+          enable_jekyll: false
