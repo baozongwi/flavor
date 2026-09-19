@@ -1,0 +1,8 @@
+- id: search-placeholder
+  translation: "Search article titles, tags, categories, or content"
+- id: search-empty
+  translation: "Enter keywords to start searching"
+- id: search-no-results
+  translation: "No matching articles found"
+- id: search-unavailable
+  translation: "Search index unavailable (build the index first for local preview)"

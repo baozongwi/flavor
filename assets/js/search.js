@@ -5,6 +5,12 @@
   var searchBtn = document.getElementById('search-btn');
   if (!overlay || !input || !results || !searchBtn) return;
 
+  // Localized messages live in <template> elements in search-overlay.html.
+  function tpl(id) {
+    var t = document.getElementById(id);
+    return t ? t.innerHTML : '';
+  }
+
   // Pagefind is generated post-build (npx pagefind --site public), so the
   // module only exists on the deployed site. Loaded lazily on first open.
   var pagefind = null;
@@ -20,7 +26,7 @@
       })
       .catch(function(err) {
         loader = null;
-        results.innerHTML = '<div class="search-overlay__empty">搜索索引不可用（本地预览需先构建索引）</div>';
+        results.innerHTML = tpl('search-tpl-unavailable');
         throw err;
       });
     return loader;
@@ -35,7 +41,7 @@
   function close() {
     overlay.classList.remove('is-visible');
     input.value = '';
-    results.innerHTML = '<div class="search-overlay__empty">输入关键词开始搜索</div>';
+    results.innerHTML = tpl('search-tpl-empty');
   }
 
   searchBtn.addEventListener('click', open);
@@ -71,7 +77,7 @@
 
   function render(hits) {
     if (!hits.length) {
-      results.innerHTML = '<div class="search-overlay__empty">没有找到相关文章</div>';
+      results.innerHTML = tpl('search-tpl-no-results');
       return;
     }
     results.innerHTML = hits.map(function(item) {
@@ -88,7 +94,7 @@
   input.addEventListener('input', function() {
     var query = input.value.trim();
     if (!query) {
-      results.innerHTML = '<div class="search-overlay__empty">输入关键词开始搜索</div>';
+      results.innerHTML = tpl('search-tpl-empty');
       return;
     }
     var seq = ++searchSeq;

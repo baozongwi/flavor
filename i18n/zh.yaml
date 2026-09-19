@@ -1,0 +1,8 @@
+- id: search-placeholder
+  translation: "搜索文章标题、标签、分类或正文"
+- id: search-empty
+  translation: "输入关键词开始搜索"
+- id: search-no-results
+  translation: "没有找到相关文章"
+- id: search-unavailable
+  translation: "搜索索引不可用（本地预览需先构建索引）"
