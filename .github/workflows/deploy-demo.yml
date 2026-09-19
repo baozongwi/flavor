@@ -9,6 +9,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.repository == 'baozongwi/flavor'
+    env:
+      DEMO_DEPLOY_TOKEN: ${{ secrets.DEMO_DEPLOY_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,7 +29,7 @@ jobs:
         run: npx -y pagefind@1.5.0 --site public
 
       - name: Deploy to bao2ongw1.github.io
-        if: ${{ secrets.DEMO_DEPLOY_TOKEN != '' }}
+        if: ${{ env.DEMO_DEPLOY_TOKEN != '' }}
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.DEMO_DEPLOY_TOKEN }}
@@ -36,3 +38,7 @@ jobs:
           publish_dir: public
           force_orphan: true
           enable_jekyll: false
+
+      - name: Skip deploy
+        if: ${{ env.DEMO_DEPLOY_TOKEN == '' }}
+        run: echo "::notice::DEMO_DEPLOY_TOKEN is not set; built the site but skipped pushing to bao2ongw1.github.io."
