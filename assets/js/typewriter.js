@@ -2,10 +2,8 @@
   var el = document.getElementById('typewriter-text');
   if (!el) return;
 
-  var slogans = window.flavorSlogans || [
-    "天地不仁，以万物为刍狗",
-    "flag{ctfer_code_audit_ad_attack_cloud_sec}"
-  ];
+  var slogans = window.flavorSlogans || [];
+  if (!slogans.length) return;
 
   var sloganIndex = 0;
   var charIndex = 0;

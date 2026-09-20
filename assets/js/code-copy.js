@@ -21,7 +21,7 @@
   function createButton() {
     var btn = document.createElement('button');
     btn.className = 'highlight__copy';
-    btn.setAttribute('aria-label', 'Copy code');
+    btn.setAttribute('aria-label', (window.flavorI18n && window.flavorI18n.copyCode) || 'Copy code');
     btn.innerHTML = COPY_ICON;
     return btn;
   }

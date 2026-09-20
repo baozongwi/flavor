@@ -1,4 +1,5 @@
 baseURL = "https://bao2ongw1.github.io/"
+defaultContentLanguage = "en"
 locale = "en"
 title = "Flavor"
 theme = "flavor"

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Locale | default "zh-cn" }}">
+<html lang="{{ with .Site.Language.Locale }}{{ . }}{{ else }}{{ .Lang }}{{ end }}">
 <head>
   {{- partial "head.html" . -}}
 </head>
@@ -9,8 +9,8 @@
   <div class="site-content">
     {{- block "main" . }}{{ end -}}
   </div>
-  {{ partialCached "footer.html" "footer" }}
-  {{ partialCached "search-overlay.html" "search" }}
+  {{ partialCached "footer.html" . .Lang }}
+  {{ partialCached "search-overlay.html" . .Lang }}
   {{ if .IsHome }}
   <script>
   window.flavorSlogans = {{ with .Site.Params.typewriter.slogans }}{{ . | jsonify | safeJS }}{{ else }}["H@cking Th3 Fu1ure","Java Security & CTF Player","Stay hungry, stay foolish."]{{ end }};
@@ -31,6 +31,7 @@
     {{- $hasImg = true -}}
     {{- $hasRef = true -}}
   {{- end -}}
+  <script>window.flavorI18n = {{ dict "copyCode" (T "copy-code") | jsonify | safeJS }};</script>
   {{ partial "script.html" "js/theme-toggle.js" }}
   {{ partial "script.html" "js/search.js" }}
   {{ if .IsHome }}

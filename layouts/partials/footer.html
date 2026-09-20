@@ -17,18 +17,19 @@
       &copy; {{ with site.Params.footer.since }}{{ . }} - {{ end }}{{ now.Format "2006" }} {{ site.Title }}
     </div>
     <div class="site-footer__stats">
-      <span>{{ len $pages }} posts</span>
+      <span>{{ T "post-count" (len $pages) }}</span>
       <span>{{- if ge $wc 1000 -}}
         {{- $tenths := div (add $wc 50) 100 -}}
         {{- $whole := div $tenths 10 -}}
         {{- $decimal := sub $tenths (mul $whole 10) -}}
-        {{ $whole }}.{{ $decimal }}k words
+        {{ T "word-count-k" (printf "%d.%d" $whole $decimal) }}
       {{- else -}}
-        {{ $wc }} words
+        {{ T "word-count" $wc }}
       {{- end -}}</span>
     </div>
     <div class="site-footer__powered">
-      Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>
+      {{- $hugo := printf "<a href=%q target=_blank rel=noopener>Hugo</a>" "https://gohugo.io/" -}}
+      {{ replace (T "powered-by") "#HUGO#" $hugo | safeHTML }}
     </div>
   </div>
 </footer>

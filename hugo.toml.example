@@ -1,5 +1,6 @@
 baseURL = "https://example.com/"
-languageCode = "zh-cn"
+defaultContentLanguage = "zh"
+locale = "zh-cn"
 title = "My Blog"
 theme = "flavor"
 copyright = "your-name"

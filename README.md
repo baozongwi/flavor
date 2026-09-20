@@ -17,6 +17,7 @@ Requires **Hugo Extended 0.146+** (developed on 0.163.1).
 - AES-256-GCM encrypted posts (browser Web Crypto)
 - Friend-link cards
 - Optional welcome splash and homepage typewriter
+- UI chrome in English or Chinese via `i18n/` (`defaultContentLanguage`)
 
 ## Install
 
@@ -171,7 +172,7 @@ git clone https://github.com/baozongwi/flavor.git themes/flavor
 cp themes/flavor/hugo.toml.example hugo.toml
 ```
 
-改 `hugo.toml` 里的域名、名字、菜单。`hugo server` 能起来就算接上了。
+改 `hugo.toml` 里的域名、名字、菜单。界面语言由 `defaultContentLanguage` 决定（`zh` / `en`）。`hugo server` 能起来就算接上了。
 
 页面用这些 layout（在 `content/page/` 下建对应目录即可）：
 

@@ -14,7 +14,7 @@
     {{- $ageDays := div (sub now.Unix $fresh.Unix) 86400 -}}
     {{- if gt $ageDays $minDays -}}
 <blockquote class="stale-notice" role="note" data-lastmod="{{ $fresh.Unix }}" data-min-days="{{ $minDays }}">
-  <p>这篇文章距上次更新已 <span class="stale-notice__days">{{ $ageDays }}</span> 天，内容可能已经过时，仅供参考。</p>
+  <p>{{- $days := printf `<span class="stale-notice__days">%d</span>` $ageDays -}}{{ replace (T "stale-notice") "#DAYS#" $days | safeHTML }}</p>
 </blockquote>
 <script>
 (function () {

@@ -16,9 +16,9 @@
         {{ if .Params.sticky }}{{ partial "pin-badge.html" . }}<span class="sep">·</span>{{ end }}
         <time datetime="{{ .Date.Format "2006-01-02" }}" data-pagefind-meta="date[datetime]">{{ .Date.Format "Jan 02, 2006" }}</time>
         <span class="sep">·</span>
-        <span>{{ .ReadingTime }} min read</span>
+        <span>{{ T "reading-time" .ReadingTime }}</span>
         <span class="sep">·</span>
-        <span>{{ .WordCount }} words</span>
+        <span>{{ T "word-count" .WordCount }}</span>
         {{ with .GetTerms "categories" }}
         {{ range . }}
         <span class="sep">·</span>
@@ -33,12 +33,12 @@
     <div class="encrypt-container">
       <div class="encrypt-locked" data-salt="{{ $encData.salt }}" data-iv="{{ $encData.iv }}" data-ct="{{ $encData.ct }}">
         <form class="encrypt-form">
-          <input type="password" class="encrypt-input" placeholder="输入密码查看正文" autocomplete="current-password" required>
-          <button type="submit" class="encrypt-btn" aria-label="解锁">
+          <input type="password" class="encrypt-input" placeholder="{{ T "encrypt-placeholder" }}" autocomplete="current-password" required>
+          <button type="submit" class="encrypt-btn" aria-label="{{ T "encrypt-unlock" }}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
         </form>
-        <p class="encrypt-error" hidden>密码错误，请重试</p>
+        <p class="encrypt-error" hidden>{{ T "encrypt-error" }}</p>
       </div>
     </div>
     {{ else }}
@@ -60,13 +60,13 @@
       <nav class="post-footer__nav">
         {{ with .PrevInSection }}
         <a href="{{ .RelPermalink }}">
-          <small>← Previous</small>
+          <small>{{ T "prev-post" }}</small>
           <span>{{ .Title }}</span>
         </a>
         {{ else }}<span></span>{{ end }}
         {{ with .NextInSection }}
         <a href="{{ .RelPermalink }}" class="post-footer__nav-next">
-          <small>Next →</small>
+          <small>{{ T "next-post" }}</small>
           <span>{{ .Title }}</span>
         </a>
         {{ else }}<span></span>{{ end }}
@@ -76,7 +76,7 @@
   {{ if $hasTOC }}
   <aside class="post-layout__aside">
     <div class="toc">
-      <div class="toc__title">Contents</div>
+      <div class="toc__title">{{ T "toc-title" }}</div>
       {{ .TableOfContents }}
     </div>
   </aside>
@@ -88,15 +88,15 @@
       lay out any of it on desktop. toc.js clones it into <body> only
       when the viewport matches (max-width: 768px). */}}
 <template id="toc-mobile-tpl">
-  <button class="toc-fab" id="toc-fab" type="button" aria-label="打开目录">
+  <button class="toc-fab" id="toc-fab" type="button" aria-label="{{ T "toc-open" }}">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
   </button>
   <div class="toc-drawer__overlay" id="toc-drawer-overlay"></div>
-  <aside class="toc-drawer" id="toc-drawer" role="dialog" aria-modal="true" aria-label="文章目录">
+  <aside class="toc-drawer" id="toc-drawer" role="dialog" aria-modal="true" aria-label="{{ T "toc-label" }}">
     <div class="toc-drawer__handle" aria-hidden="true"></div>
     <div class="toc-drawer__header">
-      <span class="toc-drawer__title">目录</span>
-      <button class="toc-drawer__close" id="toc-drawer-close" type="button" aria-label="关闭目录">
+      <span class="toc-drawer__title">{{ T "toc-title" }}</span>
+      <button class="toc-drawer__close" id="toc-drawer-close" type="button" aria-label="{{ T "toc-close" }}">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>

@@ -6,3 +6,67 @@
   translation: "No matching articles found"
 - id: search-unavailable
   translation: "Search index unavailable (build the index first for local preview)"
+- id: search-label
+  translation: "Search"
+- id: theme-toggle
+  translation: "Toggle theme"
+- id: menu
+  translation: "Menu"
+- id: copy-code
+  translation: "Copy code"
+- id: pagination-label
+  translation: "Pagination"
+- id: pagination-prev
+  translation: "← Previous"
+- id: pagination-next
+  translation: "Next →"
+- id: pinned
+  translation: "Pinned"
+- id: archives-total
+  translation:
+    one: "{{ .Count }} article"
+    other: "{{ .Count }} articles"
+- id: post-count
+  translation:
+    one: "{{ .Count }} post"
+    other: "{{ .Count }} posts"
+- id: tag-count
+  translation:
+    one: "{{ .Count }} tag"
+    other: "{{ .Count }} tags"
+- id: category-count
+  translation:
+    one: "{{ .Count }} category"
+    other: "{{ .Count }} categories"
+- id: stale-notice
+  translation: "This article was last updated #DAYS# days ago and may be out of date."
+- id: encrypt-placeholder
+  translation: "Enter password to read"
+- id: encrypt-unlock
+  translation: "Unlock"
+- id: encrypt-error
+  translation: "Wrong password, try again"
+- id: toc-title
+  translation: "Contents"
+- id: toc-open
+  translation: "Open table of contents"
+- id: toc-close
+  translation: "Close table of contents"
+- id: toc-label
+  translation: "Table of contents"
+- id: reading-time
+  translation:
+    one: "{{ .Count }} min read"
+    other: "{{ .Count }} min read"
+- id: word-count
+  translation:
+    one: "{{ .Count }} word"
+    other: "{{ .Count }} words"
+- id: word-count-k
+  translation: "{{ . }}k words"
+- id: prev-post
+  translation: "← Previous"
+- id: next-post
+  translation: "Next →"
+- id: powered-by
+  translation: "Powered by #HUGO#"

@@ -4,18 +4,18 @@
 {{- range $terms -}}
   {{- if gt .Count $maxCount -}}{{- $maxCount = .Count -}}{{- end -}}
 {{- end -}}
-{{- $kind := "标签" -}}
-{{- if eq .Data.Plural "categories" -}}{{- $kind = "分类" -}}{{- end -}}
+{{- $totalKey := "tag-count" -}}
+{{- if eq .Data.Plural "categories" -}}{{- $totalKey = "category-count" -}}{{- end -}}
 <div class="container term-cloud-page">
   <h1 class="term-cloud-page__title">{{ .Title }}</h1>
-  <p class="term-cloud-page__total">共 {{ len $terms }} 个{{ $kind }}</p>
+  <p class="term-cloud-page__total">{{ T $totalKey (len $terms) }}</p>
   <div class="term-cloud">
     {{- range $terms -}}
       {{- $t := 0.5 -}}
       {{- if gt $maxCount 1 -}}
         {{- $t = div (math.Log (float .Count)) (math.Log (float $maxCount)) -}}
       {{- end -}}
-      <a href="{{ .Page.RelPermalink }}" style="--w: {{ printf "%.3f" $t }}" title="{{ .Count }} 篇">{{ .Page.LinkTitle }}</a>
+      <a href="{{ .Page.RelPermalink }}" style="--w: {{ printf "%.3f" $t }}" title="{{ T "post-count" .Count }}">{{ .Page.LinkTitle }}</a>
     {{- end -}}
   </div>
 </div>
