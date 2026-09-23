@@ -93,9 +93,9 @@ hasCJKLanguage = true
     [markup.goldmark.renderer]
       unsafe = true
   [markup.tableOfContents]
-    startLevel = 2
+    startLevel = 1
     endLevel = 4
-    ordered = true
+    ordered = false
   [markup.highlight]
     noClasses = false
     codeFences = true

@@ -70,3 +70,9 @@
   translation: "Next →"
 - id: powered-by
   translation: "Powered by #HUGO#"
+- id: theme-credit
+  translation: "Theme #THEME#"
+- id: to-top
+  translation: "Back to top"
+- id: link-offline
+  translation: "Currently unreachable"

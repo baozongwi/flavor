@@ -64,3 +64,9 @@
   translation: "下一篇 →"
 - id: powered-by
   translation: "由 #HUGO# 驱动"
+- id: theme-credit
+  translation: "主题 #THEME#"
+- id: to-top
+  translation: "回到顶部"
+- id: link-offline
+  translation: "暂时访问不了"

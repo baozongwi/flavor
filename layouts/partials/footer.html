@@ -29,7 +29,9 @@
     </div>
     <div class="site-footer__powered">
       {{- $hugo := printf "<a href=%q target=_blank rel=noopener>Hugo</a>" "https://gohugo.io/" -}}
-      {{ replace (T "powered-by") "#HUGO#" $hugo | safeHTML }}
+      {{- $theme := printf "<a href=%q target=_blank rel=noopener>Flavor</a>" "https://github.com/baozongwi/flavor" -}}
+      <span>{{ replace (T "powered-by") "#HUGO#" $hugo | safeHTML }}</span>
+      <span>{{ replace (T "theme-credit") "#THEME#" $theme | safeHTML }}</span>
     </div>
   </div>
 </footer>

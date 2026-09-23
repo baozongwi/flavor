@@ -13,9 +13,11 @@ Requires **Hugo Extended 0.146+** (developed on 0.163.1).
 - Paper-light and blue-dark color schemes (`prefers-color-scheme` + manual toggle)
 - CJK-friendly serif stack; optional self-hosted unicode-range fonts
 - Overlay search via [Pagefind](https://pagefind.app/)
-- Table of contents, code copy, image lightbox
+- Table of contents as a right-hand sheet (closed until you open it), code copy, image lightbox
+- Back-to-top on article pages
+- Equal-size tag lists; tags sit under the title as `#name`
 - AES-256-GCM encrypted posts (browser Web Crypto)
-- Friend-link cards
+- Friend-link cards (`offline: true` greys the avatar until hover)
 - Optional welcome splash and homepage typewriter
 - UI chrome in English or Chinese via `i18n/` (`defaultContentLanguage`)
 
@@ -75,6 +77,7 @@ Links:
     url: https://example.com
     avatar: /friends/avatars/someone.jpg
     description: optional
+    # offline: true  # grey avatar until hover or focus
 ```
 
 Put avatars in `static/friends/avatars/`.
@@ -130,11 +133,11 @@ Otherwise the stack is `Songti SC / STSong / Noto Serif SC`.
 
 ## Images
 
-Raster images on the page go through `process-image.html` at build time and are served as webp. Keep png/jpg originals in the repo.
+Raster images on the page go through `process-image.html` at build time and are served as webp. Keep png/jpg originals in the repo. Images wider than the ~850px column get an `850w` srcset. To show a smaller width, use Obsidian `![alt|320](pic.jpg)` / `![alt|320x640](pic.jpg)`, or `?w=320` (the query wins if both are set).
 
 | Use | Processing |
 | --- | --- |
-| Markdown body images | longest edge 1600, `webp q80` |
+| Markdown body images | longest edge 1600, `webp q80`; srcset at 850w when wider |
 | Friend-link cards | `Fill 144x144 webp q88` |
 | Homepage avatar | `Resize 264x webp q90` |
 | `og:image` | same as body images |
@@ -159,7 +162,7 @@ MIT.
 
 # 中文
 
-纸色浅色 / 蓝黑深色的技术博客主题。CJK 衬线、加密文章、友链。
+纸色浅色 / 蓝黑深色的技术博客主题。CJK 衬线、加密文章、友链。文章目录是右侧抽屉，标签等大排列，文章页有回到顶部。
 
 演示：[bao2ongw1.github.io](https://bao2ongw1.github.io)
 
@@ -203,6 +206,7 @@ Links:
     url: https://example.com
     avatar: /friends/avatars/someone.jpg
     description: 可选
+    # offline: true  # 头像默认灰度，悬停或聚焦恢复彩色
 ```
 
 头像放到 `static/friends/avatars/`。
@@ -266,11 +270,11 @@ bash themes/flavor/scripts/encrypt.sh
 
 ## 图片
 
-页面上的光栅图统一走 `process-image.html`，构建时转 webp。仓库里仍放 png/jpg 原图。
+页面上的光栅图统一走 `process-image.html`，构建时转 webp。仓库里仍放 png/jpg 原图。比栏宽（约 850px）更宽的图会带 `850w` 的 srcset。单张要缩小显示时，用 Obsidian 的 `![alt|320](pic.jpg)` / `![alt|320x640](pic.jpg)`，或 `?w=320`（两个都写时以 query 为准）。
 
 | 场景 | 处理 |
 |---|---|
-| 正文 Markdown 图 | 最长边 1600，`webp q80` |
+| 正文 Markdown 图 | 最长边 1600，`webp q80`；够宽时带 850w srcset |
 | 友链卡片 | `Fill 144x144 webp q88` |
 | 首页头像 | `Resize 264x webp q90` |
 | `og:image` | 和正文同一套 |

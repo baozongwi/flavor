@@ -23,6 +23,10 @@
   .archives-year__title {
     font-size: 1.3125rem;
   }
+
+  .read {
+    padding: 0 20px;
+  }
 }
 
 // Mobile
@@ -33,10 +37,6 @@
 
   .term-cloud-page__title {
     font-size: 1.5625rem;
-  }
-
-  .term-cloud a {
-    font-size: clamp(0.75rem, calc(0.72rem + var(--w) * 0.85rem), 1.375rem);
   }
 
   .hero {
@@ -68,7 +68,7 @@
     padding: 32px 0 20px;
   }
 
-  .post-layout {
+  .read {
     padding: 0 16px;
   }
 
@@ -236,12 +236,18 @@
   }
 
   .link-card {
-    padding: 12px;
-    gap: 10px;
-
-    &__avatar, &__fallback {
+    &__media,
+    &__fallback {
       width: 48px;
-      height: 48px;
+    }
+
+    &__avatar {
+      min-height: 48px;
+    }
+
+    &__fallback {
+      min-height: 48px;
+      font-size: 1.1rem;
     }
   }
 

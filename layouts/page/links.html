@@ -26,16 +26,18 @@
     <div class="links-grid" data-links-grid>
       {{ range .items }}
         {{ $name := default .name .id }}
-        <a class="link-card" data-links-card href="{{ .url }}" target="_blank" rel="noopener">
+        <a class="link-card{{ if .offline }} is-offline{{ end }}" data-links-card href="{{ .url }}" target="_blank" rel="noopener"{{ if .offline }} title="{{ T "link-offline" }}"{{ end }}>
           {{ with .avatar }}
           {{ $src := . }}
           {{ $av := partial "get-static-image.html" $src }}
+          <span class="link-card__media">
           {{ if $av }}
             {{ $av = partial "process-image.html" (dict "image" $av "op" "fill" "spec" "144x144" "q" 88) }}
             <img class="link-card__avatar" src="{{ $av.RelPermalink }}" alt="{{ $name }}" width="72" height="72" loading="lazy" decoding="async">
           {{ else }}
             <img class="link-card__avatar" src="{{ $src | relURL }}" alt="{{ $name }}" width="72" height="72" loading="lazy" decoding="async">
           {{ end }}
+          </span>
           {{ else }}
           <div class="link-card__fallback">{{ substr $name 0 1 }}</div>
           {{ end }}

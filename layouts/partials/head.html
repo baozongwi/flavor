@@ -34,5 +34,10 @@
 {{- end -}}
 {{- $style := resources.Get "scss/main.scss" | toCSS | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+{{- with (urls.Parse .Site.BaseURL).Host }}
+<style>
+.article-content a[href*="{{ . }}"]::after{content:none!important;padding:0!important;background:none!important;-webkit-mask-image:none!important;mask-image:none!important}
+</style>
+{{- end }}
 {{- partial "meta.html" . -}}
 {{- partial "schema.html" . -}}

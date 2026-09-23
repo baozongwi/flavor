@@ -26,43 +26,86 @@
 
 .links-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
 .link-card {
+  --link-ease: cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   align-items: stretch;
+  min-width: 0;
   border: 1px solid var(--card-border);
   border-radius: 10px;
   background: var(--card-bg);
   color: inherit;
   overflow: hidden;
-  transition: border-color var(--t-base), box-shadow var(--t-base);
+  transition:
+    border-color 0.4s var(--link-ease),
+    box-shadow 0.4s var(--link-ease),
+    transform 0.4s var(--link-ease);
 
   &:hover {
-    border-color: var(--link);
+    border-color: color-mix(in srgb, var(--link) 42%, var(--card-border));
     box-shadow: var(--card-hover-shadow);
   }
 
-  &:active {
-    transform: translateY(-1px);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    &:active {
+      transform: translateY(-1px) scale(0.985);
+      transition-duration: 0.12s;
+    }
   }
 
-  // Fixed square avatar — object-fit:cover crops any aspect ratio.
-  // A height is required: without it the img's intrinsic height (from
-  // width / natural ratio) participates in flex sizing and makes cards
-  // with non-1:1 avatars taller/shorter than the rest.
-  &__avatar {
+  // Left slab: full card height, clipped by the card radius so the
+  // picture is part of the card, not a floating icon.
+  &__media {
     width: 72px;
-    height: 72px;
     flex-shrink: 0;
+    align-self: stretch;
+    overflow: hidden;
+  }
+
+  &__avatar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 72px;
     object-fit: cover;
+    transform: scale(1);
+    transition: transform 0.55s var(--link-ease), filter var(--t-base);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover &__avatar {
+      transform: scale(1.06);
+    }
+  }
+
+  // Unreachable but kept: gray avatar, color on hover/focus.
+  &.is-offline {
+    .link-card__avatar,
+    .link-card__fallback {
+      filter: grayscale(1);
+    }
+
+    &:hover,
+    &:focus-visible {
+      .link-card__avatar,
+      .link-card__fallback {
+        filter: grayscale(0);
+      }
+    }
   }
 
   &__fallback {
     width: 72px;
-    height: 72px;
+    min-height: 72px;
+    align-self: stretch;
     flex-shrink: 0;
     background: var(--tag-bg);
     color: var(--link);
@@ -71,6 +114,7 @@
     justify-content: center;
     font-weight: 700;
     font-size: 1.5rem;
+    transition: filter var(--t-base);
   }
 
   &__info {
@@ -89,6 +133,11 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: color 0.4s var(--link-ease);
+  }
+
+  &:hover &__name {
+    color: var(--link);
   }
 
   &__desc {
@@ -115,13 +164,17 @@
   }
 
   .link-card {
-    &__avatar,
+    &__media,
     &__fallback {
       width: 56px;
-      height: 56px;
+    }
+
+    &__avatar {
+      min-height: 56px;
     }
 
     &__fallback {
+      min-height: 56px;
       font-size: 1.25rem;
     }
   }

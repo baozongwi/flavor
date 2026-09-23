@@ -32,12 +32,15 @@
     margin-bottom: 6px;
   }
 
-  &__stats {
-    color: var(--meta);
-
+  &__stats,
+  &__powered {
     span + span::before {
       content: " · ";
     }
+  }
+
+  &__stats {
+    color: var(--meta);
   }
 
   &__powered,
