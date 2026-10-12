@@ -71,8 +71,13 @@
     if (!iso) return '';
     var d = new Date(iso);
     if (isNaN(d)) return iso;
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    return months[d.getMonth()] + ' ' + String(d.getDate()).padStart(2, '0') + ', ' + d.getFullYear();
+    var lang = document.documentElement.lang || 'en';
+    try {
+      return d.toLocaleDateString(lang, { year: 'numeric', month: 'short', day: '2-digit' });
+    } catch (e) {
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return months[d.getMonth()] + ' ' + String(d.getDate()).padStart(2, '0') + ', ' + d.getFullYear();
+    }
   }
 
   function render(hits) {

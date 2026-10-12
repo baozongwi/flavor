@@ -46,9 +46,9 @@ hasCJKLanguage = true
       "stay hungry, stay foolish",
     ]
 
-  # 可选。主题不附带字体；把切好的 unicode-range css/woff2 放到 static/fonts/ 再填路径。
+  # 可选。本地切包或自建/CDN 的 result.css。不配则走系统 UI 黑体。
   # [params.font]
-  #   css = "fonts/your-font/result.css"
+  #   css = "https://example.com/fonts/result.css"
   #   preload = "fonts/your-font/xxxx.woff2"
 
 [menu]

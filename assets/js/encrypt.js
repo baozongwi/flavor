@@ -117,7 +117,7 @@
       hydrateTOC(body);
       document.dispatchEvent(new CustomEvent('flavor:enhance', { detail: body }));
     } catch (err) {
-      console.error('解密失败', err);
+      console.error('Decrypt failed', err);
       error.removeAttribute('hidden');
     } finally {
       btn.disabled = false;

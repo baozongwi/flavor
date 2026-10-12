@@ -35,6 +35,11 @@
     padding: 0 16px;
   }
 
+  .term-cloud-page {
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+
   .term-cloud-page__title {
     font-size: 1.5625rem;
   }
@@ -232,22 +237,6 @@
 
     input {
       font-size: 0.9375rem;
-    }
-  }
-
-  .link-card {
-    &__media,
-    &__fallback {
-      width: 48px;
-    }
-
-    &__avatar {
-      min-height: 48px;
-    }
-
-    &__fallback {
-      min-height: 48px;
-      font-size: 1.1rem;
     }
   }
 

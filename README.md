@@ -1,6 +1,6 @@
 # Flavor
 
-Paper-light / blue-dark Hugo theme for technical blogs. CJK serif typography, encrypted posts, and friend links.
+Paper-light / blue-dark Hugo theme for technical blogs. System UI type, encrypted posts, and friend links.
 
 **Demo:** [bao2ongw1.github.io](https://bao2ongw1.github.io)
 
@@ -11,7 +11,7 @@ Requires **Hugo Extended 0.146+** (developed on 0.163.1).
 ## Features
 
 - Paper-light and blue-dark color schemes (`prefers-color-scheme` + manual toggle)
-- CJK-friendly serif stack; optional self-hosted unicode-range fonts
+- System UI sans (PingFang / Microsoft YaHei); optional webfont via `params.font`
 - Overlay search via [Pagefind](https://pagefind.app/)
 - Table of contents as a right-hand sheet (closed until you open it), code copy, image lightbox
 - Back-to-top on article pages
@@ -119,17 +119,14 @@ Leave `welcome.text` empty to skip the splash. `params.status` is the homepage b
 
 ## Fonts
 
-The theme **does not ship any font files**. The demo site uses TsangerJinKai 02 (Miaoyan); that typeface is copyrighted and cannot be redistributed with the theme.
-
-If you have unicode-range woff2 files, put them in `static/fonts/` and set:
+The theme **does not ship any font files**. By default it uses the same system UI sans stack as exp10it.io (PingFang SC on macOS, Microsoft YaHei on Windows). To attach a webfont:
 
 ```toml
 [params.font]
-  css = "fonts/your-font/result.css"
-  preload = "fonts/your-font/xxxx.woff2"
+  css = "https://example.com/fonts/result.css"
 ```
 
-Otherwise the stack is `Songti SC / STSong / Noto Serif SC`.
+`css` that starts with `http(s)://` gets a `preconnect`. Local files still work (`css = "fonts/your-font/result.css"` plus optional `preload`).
 
 ## Images
 
@@ -162,7 +159,7 @@ MIT.
 
 # 中文
 
-纸色浅色 / 蓝黑深色的技术博客主题。CJK 衬线、加密文章、友链。文章目录是右侧抽屉，标签等大排列，文章页有回到顶部。
+纸色浅色 / 蓝黑深色的技术博客主题。系统 UI 黑体、加密文章、友链。文章目录是右侧抽屉，标签等大排列，文章页有回到顶部。
 
 演示：[bao2ongw1.github.io](https://bao2ongw1.github.io)
 
@@ -256,17 +253,14 @@ bash themes/flavor/scripts/encrypt.sh
 
 ## 字体
 
-主题**不附带**任何字体文件。演示站用的是仓耳今楷 02（妙言），版权归原作者，不能跟着主题分发。
-
-自己有切好的 unicode-range 文件就丢进 `static/fonts/`，再配：
+主题**不附带**任何字体文件。默认和 exp10it.io 一样走系统 UI 黑体（macOS 苹方 / Windows 微软雅黑）。要挂 webfont 时再配：
 
 ```toml
 [params.font]
-  css = "fonts/your-font/result.css"
-  preload = "fonts/your-font/xxxx.woff2"
+  css = "https://example.com/fonts/result.css"
 ```
 
-不配的话走 `Songti SC / STSong / Noto Serif SC`。
+`css` 是 `http(s)://` 时会自动 `preconnect`。本地文件同样可以（`css = "fonts/your-font/result.css"`，可选 `preload`）。
 
 ## 图片
 

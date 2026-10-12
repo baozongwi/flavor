@@ -22,7 +22,7 @@ Emphasis, lists, and quotes work as usual. External links such as [Hugo](https:/
 - Put page resources next to the markdown file
 - GIF and SVG skip the webp pipeline
 
-> The theme ships no webfonts. Point `params.font` at your own files, or keep the system Songti / Noto serif stack.
+> The theme ships no webfonts. Point `params.font` at your own files, or keep the system UI sans stack.
 
 ## Code
 
@@ -49,7 +49,7 @@ Relative images are processed as page resources when present, otherwise they fol
 
 ## Tags
 
-The title comes first. Tags in the meta line under it are plain `#name` links. The `/tags/` index is equal-size wrapping text, not a weighted cloud.
+The title comes first. Tags in the meta line under it are plain `#name` links. The `/tags/` index is equal-size names with a hash mark, not a weighted cloud.
 
 ## Long enough to scroll
 
