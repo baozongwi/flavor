@@ -119,7 +119,7 @@ Leave `welcome.text` empty to skip the splash. `params.status` is the homepage b
 
 ## Fonts
 
-The theme **does not ship any font files**. By default it uses the same system UI sans stack as exp10it.io (PingFang SC on macOS, Microsoft YaHei on Windows). To attach a webfont:
+Body text uses the system UI sans stack (PingFang SC on macOS, Microsoft YaHei on Windows). The navbar ships [Chillax](https://www.fontshare.com/fonts/chillax) (Manushi Parikh, Indian Type Foundry) for the site name and menu only. To attach a webfont for the rest of the site:
 
 ```toml
 [params.font]
@@ -253,7 +253,7 @@ bash themes/flavor/scripts/encrypt.sh
 
 ## 字体
 
-主题**不附带**任何字体文件。默认和 exp10it.io 一样走系统 UI 黑体（macOS 苹方 / Windows 微软雅黑）。要挂 webfont 时再配：
+正文默认和 exp10it.io 一样走系统 UI 黑体（macOS 苹方 / Windows 微软雅黑）。导航栏单独附带 [Chillax](https://www.fontshare.com/fonts/chillax)（Manushi Parikh，Indian Type Foundry），只用于站点名和菜单。正文要再挂 webfont 时：
 
 ```toml
 [params.font]
