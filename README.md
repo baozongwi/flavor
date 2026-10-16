@@ -23,20 +23,46 @@ Requires **Hugo Extended 0.146+** (developed on 0.163.1).
 
 ## Install
 
+From the site repository:
+
 ```bash
-git clone https://github.com/baozongwi/flavor.git themes/flavor
+git submodule add -b main https://github.com/baozongwi/flavor.git themes/flavor
 cp themes/flavor/hugo.toml.example hugo.toml
 ```
 
 Edit the domain, name, and menus in `hugo.toml`, then `hugo server`.
 
-Or as a Hugo module:
+### Update
+
+From the site root:
+
+```bash
+git submodule update --remote --merge
+```
+
+Commit the updated submodule pointer in the site repository. A `themes/flavor` directory created with `git clone` updates with `git -C themes/flavor pull`.
+
+### Hugo module
+
+```bash
+hugo mod init example.com/my-site
+```
+
+Replace `theme = "flavor"` in `hugo.toml` with:
 
 ```toml
 [module]
   [[module.imports]]
     path = "github.com/baozongwi/flavor"
 ```
+
+Update with:
+
+```bash
+hugo mod get -u github.com/baozongwi/flavor
+```
+
+`hugo mod vendor` places the encrypt script at `_vendor/github.com/baozongwi/flavor/scripts/encrypt.sh`.
 
 Preview the bundled example site from the theme root:
 
@@ -167,12 +193,46 @@ MIT.
 
 ## 安装
 
+在站点仓库里：
+
 ```bash
-git clone https://github.com/baozongwi/flavor.git themes/flavor
+git submodule add -b main https://github.com/baozongwi/flavor.git themes/flavor
 cp themes/flavor/hugo.toml.example hugo.toml
 ```
 
 改 `hugo.toml` 里的域名、名字、菜单。界面语言由 `defaultContentLanguage` 决定（`zh` / `en`）。`hugo server` 能起来就算接上了。
+
+### 更新
+
+在站点根目录：
+
+```bash
+git submodule update --remote --merge
+```
+
+在站点仓库里提交一次，把新的 submodule 指针记下来。`themes/flavor` 如果是当初 `git clone` 下来的，用 `git -C themes/flavor pull`。
+
+### Hugo module
+
+```bash
+hugo mod init example.com/my-site
+```
+
+把 `hugo.toml` 里的 `theme = "flavor"` 换成：
+
+```toml
+[module]
+  [[module.imports]]
+    path = "github.com/baozongwi/flavor"
+```
+
+之后更新：
+
+```bash
+hugo mod get -u github.com/baozongwi/flavor
+```
+
+加密脚本要先 `hugo mod vendor`，路径是 `_vendor/github.com/baozongwi/flavor/scripts/encrypt.sh`。
 
 页面用这些 layout（在 `content/page/` 下建对应目录即可）：
 
