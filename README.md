@@ -90,23 +90,20 @@ npx -y pagefind@1.5.0 --site public
 
 ## Friend links
 
-`data/friends.yaml`. Group names are free-form; `Team` and `Links` render first. Cards shuffle on each refresh.
+`data/friends.yaml` (or `friends.toml`). Group names are free-form; `Team` and `Links` render first. Names sit on a ruled sheet, six across on a desktop, and shuffle on each refresh. The note appears only while the pointer is on a name. An empty `description` is not rendered. On a phone the description sits beside the name.
 
 ```yaml
 Team:
   - name: su-team
     url: https://su-team.cn/
-    avatar: /friends/avatars/su-team.png
+    description: optional
 
 Links:
   - name: someone
     url: https://example.com
-    avatar: /friends/avatars/someone.jpg
     description: optional
-    # offline: true  # grey avatar until hover or focus
+    # offline: true  # grey name; the link stays
 ```
-
-Put avatars in `static/friends/avatars/`.
 
 ## Encrypted posts
 
@@ -250,23 +247,20 @@ npx -y pagefind@1.5.0 --site public
 
 ## 友链
 
-`data/friends.yaml`，分组名随意，`Team` 和 `Links` 会排在最前，组内卡片每次刷新随机顺序。
+`data/friends.yaml`（或 `friends.toml`）。分组名随意，`Team` 和 `Links` 会排在最前。名字写在横线纸上，桌面每行六个，刷新打乱。鼠标移到名字上才弹出纸条；没写 `description` 就不显示。手机上描述跟在名字旁边。
 
 ```yaml
 Team:
   - name: su-team
     url: https://su-team.cn/
-    avatar: /friends/avatars/su-team.png
+    description: 可选
 
 Links:
   - name: someone
     url: https://example.com
-    avatar: /friends/avatars/someone.jpg
     description: 可选
-    # offline: true  # 头像默认灰度，悬停或聚焦恢复彩色
+    # offline: true  # 名字变灰，链接仍可点
 ```
-
-头像放到 `static/friends/avatars/`。
 
 ## 加密文章
 
