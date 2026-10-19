@@ -54,11 +54,11 @@
 }
 
 [data-theme="light"] .link-paper {
-  background-color: #fbf6ea;
+  background-color: var(--bg);
   background-image: repeating-linear-gradient(
     to bottom,
     transparent 0 35px,
-    rgba(92, 74, 48, 0.18) 35px 36px
+    color-mix(in srgb, var(--text) 12%, transparent) 35px 36px
   );
 }
 
@@ -258,44 +258,42 @@
   .link-paper {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.15rem;
-    padding: 1.15rem 1rem 1.25rem;
+    align-items: stretch;
+    gap: 0.9rem;
+    height: auto;
+    padding: 1.2rem 1rem;
     background-image: none;
   }
 
   .link-row {
+    display: contents;
     height: auto;
   }
 
-  .link-row .link-spot {
-    position: static;
-    top: auto;
-    left: auto;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    transform: none;
-  }
-
-  .link-spot,
-  .link-row[data-fixed-cols] .link-spot {
+  .link-row .link-spot,
+  .link-spot {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    justify-content: flex-start;
-    gap: 0.15rem 0.7rem;
-    flex: 1 1 auto;
+    justify-content: center;
+    gap: 0.3rem 0.6rem;
     width: 100%;
     max-width: 100%;
     height: auto;
-    padding: 0.35rem 0;
+    padding: 0;
+    transform: none !important;
   }
 
   .link-spot__name,
   .link-spot.is-hot .link-spot__name {
-    font-size: 1.65rem;
-    transform: none;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.2;
+    white-space: normal;
+    transform: none !important;
   }
 
   .link-spot__scribble {
@@ -318,7 +316,7 @@
     opacity: 1;
     visibility: visible;
     transform: none;
-    text-align: left;
+    text-align: center;
   }
 
   .link-spot__note::before,
@@ -332,15 +330,11 @@
   }
 
   .link-spot__note-desc {
-    font-size: 0.82rem;
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 640px) {
-  @include link-paper-flow;
-}
-
-@media (hover: none) and (pointer: coarse) {
   @include link-paper-flow;
 }
 
