@@ -2,7 +2,7 @@
 {{ if gt $paginator.TotalPages 1 }}
 <nav class="pagination" aria-label="{{ T "pagination-label" }}">
   {{ if $paginator.HasPrev }}
-  <a href="{{ $paginator.Prev.URL }}" class="pagination__prev">{{ T "pagination-prev" }}</a>
+  <a href="{{ $paginator.Prev.URL }}" class="pagination__prev" rel="prev">{{ T "pagination-prev" }}</a>
   {{ else }}
   <span class="pagination__prev disabled">{{ T "pagination-prev" }}</span>
   {{ end }}
@@ -10,7 +10,7 @@
   <span class="pagination__info">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
 
   {{ if $paginator.HasNext }}
-  <a href="{{ $paginator.Next.URL }}" class="pagination__next">{{ T "pagination-next" }}</a>
+  <a href="{{ $paginator.Next.URL }}" class="pagination__next" rel="next">{{ T "pagination-next" }}</a>
   {{ else }}
   <span class="pagination__next disabled">{{ T "pagination-next" }}</span>
   {{ end }}

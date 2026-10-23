@@ -3,7 +3,10 @@
 <head>
   {{- partial "head.html" . -}}
 </head>
-<body>
+{{- /* Resolved after head.html so that custom/head-extra.html has had a
+       chance to record its decision in the page store. */ -}}
+{{- $bodyClass := partial "custom/body-class.html" . -}}
+<body{{ if $bodyClass }} class="{{ $bodyClass }}"{{ end }}>
   {{ if .IsHome }}{{ partial "welcome.html" . }}{{ end }}
   {{ partial "navbar.html" . }}
   <div class="site-content">
@@ -17,14 +20,19 @@
   </script>
   {{ end }}
   {{- $encrypted := and .IsPage .Params.encrypted -}}
-  {{- $hasTOC := and .IsPage (or $encrypted (ge (len .TableOfContents) 100)) -}}
+  {{- /* The TOC button only exists in the single layout, so pages with a
+         custom layout must not load toc.js even when they have headings. */ -}}
+  {{- $single := or (not .Layout) (eq .Layout "single") -}}
+  {{- $hasTOC := and .IsPage $single (or $encrypted (ge (len .TableOfContents) 100)) -}}
   {{- $hasCode := false -}}
   {{- $hasImg := false -}}
   {{- $hasRef := false -}}
   {{- if and .IsPage (not $encrypted) -}}
+    {{- /* .Content must be called before the Store reads below: the render
+           hooks that set these flags run while it renders. */ -}}
     {{- $c := .Content -}}
     {{- $hasCode = or (strings.Contains $c "highlight") (strings.Contains $c "<pre") -}}
-    {{- $hasImg = strings.Contains $c "<img" -}}
+    {{- $hasImg = or (.Store.Get "hasImg") (strings.Contains $c "<img") -}}
     {{- $hasRef = strings.Contains $c "<blockquote" -}}
   {{- else if $encrypted -}}
     {{- $hasCode = true -}}

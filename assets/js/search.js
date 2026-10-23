@@ -15,10 +15,15 @@
   // module only exists on the deployed site. Loaded lazily on first open.
   var pagefind = null;
   var loader = null;
+  // Resolved from the overlay's data attribute so that sites deployed under a
+  // subpath (baseURL ending in a directory) still find the index.
+  function pagefindUrl() {
+    return overlay.getAttribute('data-pagefind') || '/pagefind/pagefind.js';
+  }
   function loadPagefind() {
     if (pagefind) return Promise.resolve(pagefind);
     if (loader) return loader;
-    loader = import('/pagefind/pagefind.js')
+    loader = import(pagefindUrl())
       .then(function(mod) {
         pagefind = mod;
         pagefind.init();

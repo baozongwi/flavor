@@ -22,6 +22,8 @@
   translation: "Next →"
 - id: pinned
   translation: "Pinned"
+- id: page-number
+  translation: "Page %d"
 - id: archives-total
   translation:
     one: "{{ .Count }} article"
@@ -39,7 +41,7 @@
     one: "{{ .Count }} category"
     other: "{{ .Count }} categories"
 - id: stale-notice
-  translation: "This article was last updated #DAYS# days ago and may be out of date."
+  translation: "Last updated over #DAYS# days ago. This post may be out of date."
 - id: encrypt-placeholder
   translation: "Enter password to read"
 - id: encrypt-unlock

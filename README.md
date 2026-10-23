@@ -172,7 +172,7 @@ Set `sticky: true` in front matter. They sort first on the home and list first p
 
 ## Stale notice
 
-When a `post` is more than 100 days past `lastmod` (or `date` if `lastmod` is missing), a quote appears at the top of the article. Update `lastmod` or set `stale: false` to hide it. Threshold: `params.staleDays`.
+When a `post` is more than 100 days past `lastmod` (or `date` if `lastmod` is missing), a quote appears at the top of the article. Update `lastmod` or set `stale: false` to hide it. Threshold: `params.staleDays`. The published HTML stores that threshold, not today's count, so rebuilding does not rewrite every old post. The browser fills in the real number and removes the note if the post is no longer stale.
 
 ## License
 
@@ -303,7 +303,7 @@ bash themes/flavor/scripts/encrypt.sh
 
 ## 过时提示
 
-`post` 距 `lastmod`（没有就用 `date`）超过 100 天时，正文顶部会出现引用提示。把 `lastmod` 改到 100 天以内，或写 `stale: false`。阈值：`params.staleDays`。
+`post` 距 `lastmod`（没有就用 `date`）超过 100 天时，正文顶部会出现引用提示。把 `lastmod` 改到 100 天以内，或写 `stale: false`。阈值：`params.staleDays`。页面里只写这个阈值，不写当天的天数，所以重新构建不会改写每一篇旧文章。浏览器会填上真实天数；如果文章已经不再过期，这段提示会被拿掉。
 
 ## 字体
 

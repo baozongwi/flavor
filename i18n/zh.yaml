@@ -22,6 +22,8 @@
   translation: "下一页 →"
 - id: pinned
   translation: "置顶"
+- id: page-number
+  translation: "第 %d 页"
 - id: archives-total
   translation:
     other: "共 {{ .Count }} 篇文章"
@@ -35,7 +37,7 @@
   translation:
     other: "共 {{ .Count }} 个分类"
 - id: stale-notice
-  translation: "这篇文章距上次更新已 #DAYS# 天，内容可能已经过时，仅供参考。"
+  translation: "这篇文章距上次更新已超过 #DAYS# 天，内容可能已经过时，仅供参考。"
 - id: encrypt-placeholder
   translation: "输入密码查看正文"
 - id: encrypt-unlock
